@@ -1,0 +1,43 @@
+# BoomControl - Settings
+
+# General plugin toggle
+enabled: true
+
+# End Crystal PvP behavior
+crystal:
+  enabled: true  # Master toggle for all crystal-related behavior
+
+  # PvP mode:
+  # - "disabled": Crystals can't explode
+  # - "self": Only the player who hit it takes damage
+  # - "vanilla": Normal explosion behavior
+  mode: "disabled"
+
+  # Whether crystals break blocks
+  break-blocks: false
+
+  # Whether crystals deal area damage (explosion radius > 0)
+  area-damage: false
+
+  # Show a message when someone tries to use a crystal
+  show-deny-message: true
+
+# Respawn Anchor behavior
+anchor:
+  enabled: true
+
+  # Same modes as crystal
+  mode: "vanilla"  # "disabled", "self", "vanilla"
+  break-blocks: true
+  area-damage: true
+  show-deny-message: true
+
+# Messages
+messages:
+  crystal-denied: "&cCrystal PvP is disabled on this server."
+  anchor-denied: "&cRespawn anchor damage is not allowed."
+
+# Logging options
+logging:
+  log-crystal-use: true
+  log-anchor-use: true

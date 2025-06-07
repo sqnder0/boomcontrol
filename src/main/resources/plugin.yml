@@ -1,0 +1,11 @@
+name: BoomControl
+version: ${project.version}
+main: me.sander.boomControl.BoomControl
+api-version: '1.21'
+commands:
+  boomcontrol:
+    description: "Reloads the boomControl settings"
+    usage: "/boomcontrol reload"
+    aliases: [bc]
+    permission: boomcontrol.reload
+    permission-message: "You don't have permission to do that!"
