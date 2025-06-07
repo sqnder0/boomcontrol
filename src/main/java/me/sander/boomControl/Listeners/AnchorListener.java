@@ -26,8 +26,6 @@ public class AnchorListener  implements Listener {
 
     private final List<ExplosionData> activeExplosions = new ArrayList<>();
 
-    private static final int MAX_CHARGES = 4;
-
     //Notify the player if crystals are disabled
     private void notifyPlayer(Player player) { if (settings.showAnchorDenyMessage()) player.sendMessage(settings.getAnchorDenyMessage()); }
 
@@ -80,14 +78,13 @@ public class AnchorListener  implements Listener {
             if ( "self".equalsIgnoreCase(mode) ) {
                 block.setType(Material.AIR); // Remove the respawn anchor
 
-                if (world != null ) {
-                    world.createExplosion(explosionLocation, 6.0f, settings.canAnchorStartFire(), settings.canAnchorBreakBlocks());
-                    addExplosionData(new ExplosionData(explosionLocation, player));
-                    // Send a message - customizable via settings if you want
-                    notifyPlayer(player);
-                    event.setCancelled(true);
-                    return;
-                }
+                world.createExplosion(explosionLocation, 6.0f, settings.canAnchorStartFire(), settings.canAnchorBreakBlocks());
+                addExplosionData(new ExplosionData(explosionLocation, player));
+
+                // Send a message - customizable via settings if you want
+                notifyPlayer(player);
+                event.setCancelled(true);
+                return;
             }
 
         }
