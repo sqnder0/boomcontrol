@@ -6,7 +6,7 @@
 
     <groupId>me.sander</groupId>
     <artifactId>BoomControl</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>BoomControl</name>
@@ -52,7 +52,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>C:/Users/sande/shibbycraft - backup/plugins</outputDirectory>
+                            <outputDirectory>${outputDirectory}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}</directory>

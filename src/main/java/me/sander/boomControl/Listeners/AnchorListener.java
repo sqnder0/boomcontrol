@@ -57,6 +57,15 @@ public class AnchorListener  implements Listener {
         int currentCharge = anchorData.getCharges();
 
         if (currentCharge + 1 >= anchorData.getMaximumCharges()) {
+
+            Location explosionLocation = block.getLocation();
+            World world = explosionLocation.getWorld();
+
+            if (world.getEnvironment() == World.Environment.NETHER ) {
+                event.setCancelled(true);
+                return;
+            }
+
             if (player.getGameMode() != org.bukkit.GameMode.CREATIVE) {
                 item.setAmount(item.getAmount() - 1);
                 player.getInventory().setItemInMainHand(item);
@@ -67,9 +76,6 @@ public class AnchorListener  implements Listener {
                 event.setCancelled(true);
                 return;
             }
-
-            Location explosionLocation = block.getLocation();
-            World world = explosionLocation.getWorld();
 
             if ( "self".equalsIgnoreCase(mode) ) {
                 block.setType(Material.AIR); // Remove the respawn anchor
