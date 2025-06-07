@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="BoomControl:jar">
-    <output-path>$USER_HOME$/shibbycraft - backup/server01/plugins</output-path>
-    <root id="archive" name="BoomControl.jar">
-      <element id="module-output" name="BoomControl" />
-    </root>
-  </artifact>
-</component>
