@@ -1,0 +1,51 @@
+BoomControl Custom License v1.0
+
+Copyright (c) 2025 sqnder0
+
+Permission is hereby granted to any individual or entity to use, run, and modify this software solely for operating Minecraft servers, including servers that generate revenue through website advertisements, donations, or other non-sale related means.
+
+Restrictions:
+
+1. You MAY NOT sell, sublicense, or redistribute the ORIGINAL unmodified source code or compiled binaries of BoomControl for commercial purposes.
+
+2. Redistribution of the ORIGINAL unmodified source code or binaries is prohibited.
+
+3. If you modify the software by adding features or making changes, you MAY redistribute your modified version provided that:
+
+   a. You retain this license and copyright notice in all copies.
+
+   b. You give proper credit to the original author, sqnder0.
+
+   c. You clearly state the modifications you have made.
+
+   d. The redistributed software's name must include "BoomControl" to maintain clear association with the original work.
+
+   e. Any redistribution (source or binary) MUST include an original download link to the official SpigotMC or Polymart page:
+
+      https://www.spigotmc.org/resources/boomcontrol.125777/
+
+4. You MAY use this software on any Minecraft server, including commercial servers, without restriction, as long as you do not redistribute the unmodified original software.
+
+5. This license does not grant any rights to use the name "sqnder0" or any other trademarks.
+
+6. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+---
+
+If you require permission to use BoomControl in a commercial product beyond the scope described above, please contact the author directly to negotiate a commercial license.
+
+---
+
+Summary:
+
+- No selling or redistribution of the original software allowed.
+
+- Modified versions can be shared only with credits, name retention, and download link.
+
+- Server owners can use the plugin freely, even if the server earns money.
+
+- Attribution and transparency are mandatory.
+
+---
+
+Thank you for respecting these terms and supporting continued development.
