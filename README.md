@@ -95,9 +95,6 @@ Use color codes (`&c`, `&7`, etc.) to style your messages.
 ## ✅ Lightweight & Reliable
 
 No bloat. No complex dependencies. Just simple, effective explosion control.
-
-- - -
-
 Make your SMP safer and more balanced with **BoomControl**.
 
 ## 👷🏻 For Developers
