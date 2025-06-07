@@ -101,3 +101,29 @@ Make your SMP safer and more balanced with **BoomControl**.
 
 Developer documentation is currently under development and will be available soon.  
 In the meantime, feel free to explore the source code and submit issues or pull requests on GitHub.
+
+- - -
+
+## 📜 License
+
+**BoomControl** is released under a custom license with the following terms:
+
+- You may use and modify BoomControl freely for running Minecraft servers, including servers that generate revenue via ads, donations, or other non-sale means.
+- You **may NOT** sell, sublicense, or redistribute the original unmodified source code or compiled plugin binaries for commercial purposes.
+- Redistribution of the original unmodified plugin (source or binary) is strictly prohibited.
+- You may redistribute **modified versions** only if:
+  - You retain this license and copyright notice.
+  - You give clear credit to the original author (sqnder0).
+  - You clearly state what modifications you made.
+  - The redistributed plugin’s name includes “BoomControl” to preserve association with the original.
+  - Every redistribution includes a link to the official download page:  
+    https://www.spigotmc.org/resources/boomcontrol.7921/
+- Server owners are free to run the plugin on their servers regardless of whether their servers generate income.
+- No permission is granted to use the author’s name or trademarks beyond attribution.
+- The software is provided “as is” without warranty.
+
+If you want to use BoomControl commercially beyond these terms, please contact the author for a commercial license.
+
+---
+
+Thank you for respecting these terms and supporting ongoing development.
