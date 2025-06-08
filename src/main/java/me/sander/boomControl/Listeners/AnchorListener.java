@@ -27,7 +27,7 @@ public class AnchorListener  implements Listener {
     private final List<ExplosionData> activeExplosions = new ArrayList<>();
 
     //Notify the player if crystals are disabled
-    private void notifyPlayer(Player player) { if (settings.showAnchorDenyMessage()) player.sendMessage(settings.getAnchorDenyMessage()); }
+    private void notifyPlayer(Player player) { if (settings.showAnchorDenyMessage()) player.sendMessage(settings.getAnchorDenyMessageComponent()); }
 
     public AnchorListener() {
         this.plugin = BoomControl.getInstance();
@@ -53,10 +53,9 @@ public class AnchorListener  implements Listener {
 
         RespawnAnchor anchorData = (RespawnAnchor) block.getBlockData();
         int currentCharge = anchorData.getCharges();
+        Location explosionLocation = block.getLocation();
 
-        if (currentCharge + 1 >= anchorData.getMaximumCharges()) {
-
-            Location explosionLocation = block.getLocation();
+        if (currentCharge + 1 >= anchorData.getMaximumCharges() && settings.isBoomControlEnabled(explosionLocation, player)) {
             World world = explosionLocation.getWorld();
 
             if (world.getEnvironment() == World.Environment.NETHER ) {

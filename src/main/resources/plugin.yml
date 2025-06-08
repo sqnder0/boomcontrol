@@ -1,11 +1,13 @@
 name: BoomControl
 version: ${project.version}
 main: me.sander.boomControl.BoomControl
-api-version: '1.21'
+api-version: 1.21
+softdepend: [WorldGuard, WorldEdit]
+
 commands:
   boomcontrol:
-    description: "Reloads the boomControl settings"
-    usage: "/boomcontrol reload"
+    description: Reloads the BoomControl settings
+    usage: /<command> reload
     aliases: [bc]
     permission: boomcontrol.reload
-    permission-message: "You don't have permission to do that!"
+    permission-message: You don't have permission to do that!

@@ -43,11 +43,13 @@ public class CrystalListener implements Listener {
         Entity damager = event.getDamager();
 
         String mode = plugin.getSettings().getCrystalMode(); // e.g. "disabled", "self", "vanilla"
-        boolean breakBlocks = plugin.getSettings().canCrystalBreakBlocks();
+
+        Player player = getDamagerPlayer(damager);
+        if (!settings.isBoomControlEnabled(crystal.getLocation(), player)) return;
 
         // Disabled mode: cancel all damage and notify player
         if ("disabled".equalsIgnoreCase(mode)) {
-            Player player = getDamagerPlayer(damager);
+
 
             if (player != null) notifyPlayer(player); //Notify player
 
@@ -58,7 +60,6 @@ public class CrystalListener implements Listener {
 
         // Self mode: only the player who broke crystal can get damage; others are immune
         if ("self".equalsIgnoreCase(mode)) {
-            Player player = getDamagerPlayer(damager);
             if (player == null) {
                 event.setCancelled(true);
                 return;

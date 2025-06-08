@@ -1,9 +1,23 @@
 package me.sander.boomControl.Cache;
 
-import org.bukkit.ChatColor;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import me.sander.boomControl.Misc.FlagRegistrar;
 
 import java.io.File;
 
@@ -99,7 +113,33 @@ public class Settings {
         return config.getBoolean("anchor.show-deny-message", true);
     }
 
-    public String getAnchorDenyMessage() {
-        return ChatColor.translateAlternateColorCodes('&', config.getString("messages.anchor-denied", "&cPlease define an anchor deny message!"));
+    public Component getAnchorDenyMessageComponent() {
+        String raw = config.getString("messages.anchor-denied", "&cPlease define an anchor deny message!");
+        return LegacyComponentSerializer.legacyAmpersand().deserialize(raw);
+    }
+
+    public boolean isBoomControlEnabled(Location location, Player player) {
+        if (FlagRegistrar.BOOM_CONTROL == null) {
+            return true; // Flag not registered, default to allowed
+        }
+
+        WorldGuardPlugin wgPlugin = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
+        if (wgPlugin == null) {
+            return true; // WorldGuard not present, allow boomcontrol
+        }
+
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionManager manager = container.get(BukkitAdapter.adapt(location.getWorld()));
+        if (manager == null) {
+            return true; // No region manager for this world
+        }
+
+        BlockVector3 blockVector = BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+        ApplicableRegionSet regionSet = manager.getApplicableRegions(blockVector);
+        LocalPlayer localPlayer = wgPlugin.wrapPlayer(player);
+
+        // Check the flag
+        StateFlag.State state = regionSet.queryValue(localPlayer, FlagRegistrar.BOOM_CONTROL);
+        return state != StateFlag.State.DENY;
     }
 }
