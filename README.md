@@ -83,6 +83,53 @@ Use color codes (`&c`, `&7`, etc.) to style your messages.
 
 - - -
 
+## 🏳️ WorldGuard Integration (Optional)
+
+BoomControl integrates with [WorldGuard](https://enginehub.org/worldguard/) to support **region-based control** using a custom flag.
+
+### 🔖 `boomcontrol` Flag
+
+If WorldGuard is installed, BoomControl registers a custom region flag:
+
+```
+boomcontrol
+```
+
+This flag allows you to **disable BoomControl in specific regions**, even if the plugin is globally enabled.
+
+### 🧰 How It Works
+
+- If the flag is set to `DENY` in a region, **BoomControl will be disabled there completely**.  
+  Explosion behavior in that region will follow normal Minecraft mechanics.
+- If the flag is **not set** or explicitly `ALLOW`, BoomControl will apply as configured in `settings.yml`.
+
+### 🧪 Example
+
+To disable BoomControl inside a region:
+
+```bash
+/rg flag spawn boomcontrol deny
+```
+
+To enable it again:
+
+```bash
+/rg flag spawn boomcontrol allow
+```
+
+To remove the flag entirely:
+
+```bash
+/rg flag spawn -r boomcontrol
+```
+
+### ❗ Default Behavior
+
+- If the flag is **not set**, BoomControl assumes `ALLOW`.
+- This means BoomControl is **active everywhere** by default, unless explicitly denied via region flag.
+
+---
+
 ## 🧠 Perfect For
 
 *   🏰 SMP servers
