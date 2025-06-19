@@ -55,7 +55,7 @@ public class AnchorListener  implements Listener {
         int currentCharge = anchorData.getCharges();
         Location explosionLocation = block.getLocation();
 
-        if (currentCharge + 1 >= anchorData.getMaximumCharges() && settings.isBoomControlEnabled(explosionLocation, player)) {
+        if (currentCharge + 1 > anchorData.getMaximumCharges() && settings.isBoomControlEnabled(explosionLocation, player)) {
             World world = explosionLocation.getWorld();
 
             if (world.getEnvironment() == World.Environment.NETHER ) {
@@ -86,13 +86,31 @@ public class AnchorListener  implements Listener {
                 return;
             }
 
+        } else if (currentCharge + 1 > anchorData.getMaximumCharges()) {
+            Block clickedBlock = event.getClickedBlock();
+            World world = block.getWorld();
+
+            if (world.getEnvironment() != World.Environment.NETHER) {
+                block.setType(Material.AIR);
+                block.getWorld().createExplosion(
+                        block.getLocation().add(0.5, 0.5, 0.5), // center of block
+                        5.0f,  // vanilla power is ~5
+                        true,  // fire
+                        true,  // break blocks
+                        player
+                );
+
+                world.spawnParticle(Particle.EXPLOSION, block.getLocation().add(0.5, 0.5, 0.5), 1);
+                world.playSound(block.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
+            }
+            event.setCancelled(true);
+            return;
         }
 
         if (player.getGameMode() != GameMode.CREATIVE) {
             item.setAmount(item.getAmount() - 1);
             player.getInventory().setItemInMainHand(item);
         }
-
         anchorData.setCharges(currentCharge + 1);
         block.setBlockData(anchorData, true);
 

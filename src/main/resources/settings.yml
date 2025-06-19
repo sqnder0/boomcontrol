@@ -37,7 +37,19 @@ messages:
   crystal-denied: "&cCrystal PvP is disabled on this server."
   anchor-denied: "&cRespawn anchor damage is not allowed."
 
-# Logging options
-logging:
-  log-crystal-use: true
-  log-anchor-use: true
+# List of worlds where BoomControl should be completely disabled.
+# IMPORTANT: If a world is listed here, all region settings in that world are ignored.
+# This means BoomControl will NOT run at all in these worlds.
+#
+# Example usage:
+# blacklisted_worlds:
+#   - world
+#   - world_nether
+#   - world_the_end
+#
+# To enable BoomControl in all worlds, leave this list empty.
+
+blacklisted_worlds:
+#  - world
+#  - world_nether
+#  - world_the_end

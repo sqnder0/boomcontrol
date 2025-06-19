@@ -13,13 +13,16 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.sander.boomControl.Misc.FlagRegistrar;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.List;
 
 public class Settings {
 
@@ -118,7 +121,12 @@ public class Settings {
         return LegacyComponentSerializer.legacyAmpersand().deserialize(raw);
     }
 
-    public boolean isBoomControlEnabled(Location location, Player player) {
+    public boolean isWorldEnabled(World world) {
+        List<String> world_list = config.getStringList("blacklisted_worlds");
+        return !world_list.contains(world.getName());
+    }
+
+    public boolean isRegionEnabled(Location location, Player player) {
         if (FlagRegistrar.BOOM_CONTROL == null) {
             return true; // Flag not registered, default to allowed
         }
@@ -141,5 +149,10 @@ public class Settings {
         // Check the flag
         StateFlag.State state = regionSet.queryValue(localPlayer, FlagRegistrar.BOOM_CONTROL);
         return state != StateFlag.State.DENY;
+    }
+
+    public boolean isBoomControlEnabled(Location location, Player player) {
+        if (isWorldEnabled(location.getWorld())) return isRegionEnabled(location, player);
+        return false;
     }
 }
