@@ -83,6 +83,32 @@ Use color codes (`&c`, `&7`, etc.) to style your messages.
 
 - - -
 
+## 🛑 World Blacklist
+
+BoomControl now supports **disabling the plugin entirely in specific worlds** via a blacklist configured in `settings.yml`. This is useful if you want BoomControl to be completely inactive in certain worlds (like the Nether, End, or lobby worlds), regardless of region flags or other settings.
+
+### Example configuration:
+
+```yaml
+blacklisted_worlds:
+- world_nether
+- world_the_end
+  ```
+
+### How it works:
+
+- If a world is listed in `blacklisted_worlds`, BoomControl will be **fully disabled in that world**.
+- This means that any region-based controls or WorldGuard flags are ignored for that world.
+- Vanilla Minecraft explosion behavior applies in those worlds instead.
+
+### Usage tips:
+
+- Leave the list empty to enable BoomControl in *all* worlds.
+- Add worlds where you want BoomControl disabled completely, such as lobby or event worlds.
+- Combine this blacklist with WorldGuard region flags to achieve fine-grained control elsewhere.
+
+---
+
 ## 🏳️ WorldGuard Integration (Optional)
 
 BoomControl integrates with [WorldGuard](https://enginehub.org/worldguard/) to support **region-based control** using a custom flag.
