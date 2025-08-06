@@ -2,7 +2,6 @@ name: BoomControl
 version: ${project.version}
 main: me.sander.boomControl.BoomControl
 api-version: 1.21
-softdepend: [WorldGuard, WorldEdit]
 
 commands:
   boomcontrol:
