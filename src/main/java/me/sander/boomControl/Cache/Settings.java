@@ -9,17 +9,15 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import me.sander.boomControl.Misc.WG7FlagRegistrar;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import me.sander.boomControl.Misc.FlagRegistrar;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
@@ -37,22 +35,18 @@ public class Settings {
     public void setup() {
         configFile = new File(plugin.getDataFolder(), "settings.yml");
 
-        // Save default config if not present
         if (!configFile.exists()) {
             plugin.saveResource("settings.yml", false);
             plugin.getLogger().info("Created default settings.yml");
         }
 
-        // Load config from file
         config = YamlConfiguration.loadConfiguration(configFile);
     }
 
-    // Reload config from disk
     public void reload() {
         config = YamlConfiguration.loadConfiguration(configFile);
     }
 
-    // Save current config to disk
     public void save() {
         try {
             config.save(configFile);
@@ -61,12 +55,10 @@ public class Settings {
         }
     }
 
-    // Getter for raw config if needed
     public FileConfiguration getConfig() {
         return config;
     }
 
-    // Example convenience getters for specific keys
     public boolean isPluginEnabled() {
         return config.getBoolean("enabled", true);
     }
@@ -95,7 +87,6 @@ public class Settings {
         return config.getString("messages.crystal-denied", "&cPlease define a crystal deny message!");
     }
 
-    // Similarly for anchors
     public boolean isAnchorEnabled() {
         return config.getBoolean("anchor.enabled", true);
     }
@@ -116,43 +107,48 @@ public class Settings {
         return config.getBoolean("anchor.show-deny-message", true);
     }
 
-    public Component getAnchorDenyMessageComponent() {
+    public String getAnchorDenyMessageComponent() {
         String raw = config.getString("messages.anchor-denied", "&cPlease define an anchor deny message!");
-        return LegacyComponentSerializer.legacyAmpersand().deserialize(raw);
+        return ChatColor.translateAlternateColorCodes('&', raw);
     }
 
     public boolean isWorldEnabled(World world) {
-        List<String> world_list = config.getStringList("blacklisted_worlds");
-        return !world_list.contains(world.getName());
+        List<String> blacklisted = config.getStringList("blacklisted_worlds");
+        return !blacklisted.contains(world.getName());
     }
 
     public boolean isRegionEnabled(Location location, Player player) {
-        if (FlagRegistrar.BOOM_CONTROL == null) {
-            return true; // Flag not registered, default to allowed
+        if (WG7FlagRegistrar.BOOM_CONTROL == null) {
+            // Flag not registered, allow by default
+            return true;
         }
 
+        // Check if WorldGuard plugin present
         WorldGuardPlugin wgPlugin = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
         if (wgPlugin == null) {
-            return true; // WorldGuard not present, allow boomcontrol
+            return true; // WorldGuard not present, allow
         }
 
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
         RegionManager manager = container.get(BukkitAdapter.adapt(location.getWorld()));
+
         if (manager == null) {
-            return true; // No region manager for this world
+            return true; // No region manager for world, allow
         }
 
         BlockVector3 blockVector = BlockVector3.at(location.getBlockX(), location.getBlockY(), location.getBlockZ());
-        ApplicableRegionSet regionSet = manager.getApplicableRegions(blockVector);
+        ApplicableRegionSet regions = manager.getApplicableRegions(blockVector);
+
         LocalPlayer localPlayer = wgPlugin.wrapPlayer(player);
 
-        // Check the flag
-        StateFlag.State state = regionSet.queryValue(localPlayer, FlagRegistrar.BOOM_CONTROL);
+        StateFlag.State state = regions.queryValue(localPlayer, WG7FlagRegistrar.BOOM_CONTROL);
         return state != StateFlag.State.DENY;
     }
 
     public boolean isBoomControlEnabled(Location location, Player player) {
-        if (isWorldEnabled(location.getWorld())) return isRegionEnabled(location, player);
-        return false;
+        if (!isWorldEnabled(location.getWorld())) {
+            return false;
+        }
+        return isRegionEnabled(location, player);
     }
 }

@@ -4,7 +4,7 @@ import me.sander.boomControl.Cache.Settings;
 import me.sander.boomControl.Commands.Reload;
 import me.sander.boomControl.Listeners.AnchorListener;
 import me.sander.boomControl.Listeners.CrystalListener;
-import me.sander.boomControl.Misc.FlagRegistrar;
+import me.sander.boomControl.Misc.WG7FlagRegistrar;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,11 +27,13 @@ public final class BoomControl extends JavaPlugin {
             return;
         }
 
+        WG7FlagRegistrar flagRegistrar = new WG7FlagRegistrar();
+
         // Register the worldguard flag
         Plugin worldGuard = Bukkit.getPluginManager().getPlugin("WorldGuard");
         if (worldGuard != null) {
             getLogger().info("WorldGuard found, registering boomcontrol flag...");
-            FlagRegistrar.register(this);
+            flagRegistrar.register(this);
         } else {
             getLogger().info("WorldGuard was not found, continuing without additional flags.");
         }
