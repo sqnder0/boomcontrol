@@ -211,5 +211,5 @@ If you want to use BoomControl commercially beyond these terms, please contact t
 
 ---
 
-Thank you for respecting these terms and supporting ongoing development.
+Thank you for respecting these terms and supporting ongoing development.  
 Made with ❤️ by sqnder0
