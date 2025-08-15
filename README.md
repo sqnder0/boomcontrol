@@ -15,6 +15,18 @@ On many SMPs, End Crystals and Respawn Anchors are used in PvP for massive burst
 
 - - -
 
+## 📝 Test it out\!  
+You can test BoomControl on Minehut \(Java only\)\!  
+Add a new server, choose a name you like, and use the following IP\:
+```
+minehut.com
+```
+Once connected to Minehut, join the test server by running\:
+```
+/join devbc
+```
+This will start the test server\. Happy testing!
+
 ## 🔧 Features
 
 *   ✅ Toggle the plugin globally
@@ -200,3 +212,4 @@ If you want to use BoomControl commercially beyond these terms, please contact t
 ---
 
 Thank you for respecting these terms and supporting ongoing development.
+Made with ❤️ by sqnder0
